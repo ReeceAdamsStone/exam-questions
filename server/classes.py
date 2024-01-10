@@ -28,7 +28,6 @@ class LP1Q5(QuestionData):
     def __init__(self, question_string):
         super().__init__(question_string, marks=40, ao_id=[5, 6], paper_component="Section B", paper_name="Language Paper 1", topic="Creative Writing", supporting_material=True)
 
-\\\\\\\\\\\\
 class LitShakespeare(QuestionData):
     def __init__(self, question_string):
         super().__init__(question_string, marks=30, ao_id=[1, 2, 3], paper_component="Section A", paper_name="Literature Paper 1: Shakespeare and The 19th Century Novel", topic="Macbeth", supporting_material=True)

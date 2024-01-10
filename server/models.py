@@ -5,6 +5,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
+
 class Table1(Base):
     __tablename__ = 'Questions'
 
@@ -51,6 +53,8 @@ class Table6(Base):
     question = relationship('Table1', backref='aos')
     ao = relationship('Table5', backref='questions')
 
+    
+dbtables = [Table1, Table2, Table3, Table4, Table5, Table6]
 
 
 # Table1
