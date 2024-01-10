@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class Table1(Base):
-    __tablename__ = 'table1'
+    __tablename__ = 'Questions'
 
     QiD = Column(Integer, primary_key=True)
     Question_String = Column(String)
@@ -14,7 +14,7 @@ class Table1(Base):
     Supporting_Material = Column(String)
 
 class Table2(Base):
-    __tablename__ = 'table2'
+    __tablename__ = 'Topics'
 
     Topic_ID = Column(Integer, primary_key=True)
     Topic_Name = Column(String)
@@ -22,7 +22,7 @@ class Table2(Base):
     questions = relationship('Table1', backref='topic')
 
 class Table3(Base):
-    __tablename__ = 'table3'
+    __tablename__ = 'Component of Paper'
 
     Component_of_Paper_ID = Column(Integer, primary_key=True)
     Component_Name = Column(String)
@@ -31,20 +31,20 @@ class Table3(Base):
     components = relationship('Table2', backref='paper')
 
 class Table4(Base):
-    __tablename__ = 'table4'
+    __tablename__ = 'Paper Type'
 
     Paper_ID = Column(Integer, primary_key=True)
     Paper_Name = Column(String)
     components = relationship('Table3', backref='paper')
 
 class Table5(Base):
-    __tablename__ = 'table5'
+    __tablename__ = 'Assessment Objectives'
 
     AO_ID = Column(Integer, primary_key=True)
     AO_Int_Name = Column(String)
 
 class Table6(Base):
-    __tablename__ = 'table6'
+    __tablename__ = 'AOs By Paper'
 
     QID = Column(Integer, ForeignKey('table1.QiD'), primary_key=True)
     AO_ID = Column(Integer, ForeignKey('table5.AO_ID'), primary_key=True)
