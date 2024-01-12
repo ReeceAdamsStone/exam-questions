@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-app =Flask(__name__)
+app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'mysecret'
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{app.root_path}/questions.sqlite"
@@ -23,8 +23,8 @@ db = SQLAlchemy()
 
 db.init_app(app)
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
     
 if __name__ == '__main__':
     app.run(debug=True)
