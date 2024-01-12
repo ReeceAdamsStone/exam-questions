@@ -1,6 +1,6 @@
 from classes import *
 from flask_sqlalchemy import SQLAlchemy
-from models import dbtables 
+from models import *
 
 
 LP1Q5Strings = [
@@ -37,22 +37,21 @@ for question_string in LP1Q5Strings:
     lp1q5_instance = LP1Q5(question_string)
 
     # Note: Adjust the models and relationships based on your actual setup
-    db.session.add(dbtables.Table5(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[0]}'))
+    db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[0]}'))
     
-    db.session.add(dbtables.Table5(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[1]}'))
+    db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[1]}'))
     
-    db.session.add(dbtables.Table4(Paper_Name=lp1q5_instance.paper_name))
+    db.session.add(Paper_Name(Paper_Name=lp1q5_instance.paper_name))
     
-    db.session.add(dbtables.Table3(Component_Name=lp1q5_instance.paper_component, Marks=lp1q5_instance.marks, Paper_ID=1))
+    db.session.add(Component_of_Paper(Component_Name=lp1q5_instance.paper_component, Marks=lp1q5_instance.marks, Paper_ID=1))
     
-    db.session.add(dbtables.Table2(Topic_Name=lp1q5_instance.topic, Component_of_Paper_ID=1))
+    db.session.add(Topics(Topic_Name=lp1q5_instance.topic, Component_of_Paper_ID=1))
     
-    db.session.add(dbtables.Table1(Question_String=lp1q5_instance.question_string, Topic_ID=1, Supporting_Material=lp1q5_instance.supporting_material))
+    db.session.add(Questions(Question_String=lp1q5_instance.question_string, Topic_ID=1, Supporting_Material=lp1q5_instance.supporting_material))
     
-    db.session.add(dbtables.Table6(QID=db.session.query(dbtables.Table1).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=db.session.query(dbtables.Table5).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[0]}').first().AO_ID))
+    db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[0]}').first().AO_ID))
     
-
-    db.session.add(dbtables.Table6(QID=db.session.query(dbtables.Table1).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=db.session.query(dbtables.Table5).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[1]}').first().AO_ID))
+    db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[1]}').first().AO_ID))
     db.session.commit()
 
 # Close the session

@@ -1,60 +1,69 @@
-from app import db  
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Integer, String, ForeignKey, Table, Column
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.schema import PrimaryKeyConstraint
+# from app import db  
 
-Base = declarative_base()
+db = SQLAlchemy()
 
+class Questions(db.Model):
+    
+    QiD: Mapped[int] = mapped_column(Integer, ForeignKey('AOs_By_Paper.QID'), primary_key=True)
+    Question_String: Mapped[str] = mapped_column(String)
+    Topic_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Topics.Topic_ID'))
+    Supporting_Material: Mapped[str] = mapped_column(String)
+    # objectives = relationship('AOs_By_Paper', backref='aos_by_Q')
 
+    objectives: Mapped[List[Assessment_Objectives]] = relationship(secondary=AOs_By_Paper)
 
-class Table1(Base):
-    __tablename__ = 'Questions'
-
-    QiD = Column(Integer, primary_key=True)
-    Question_String = Column(String)
-    Topic_ID = Column(Integer, ForeignKey('table2.Topic_ID'))
-    Supporting_Material = Column(String)
-
-class Table2(Base):
+class Topics(db.Model):
     __tablename__ = 'Topics'
 
-    Topic_ID = Column(Integer, primary_key=True)
-    Topic_Name = Column(String)
-    Component_of_Paper_ID = Column(Integer, ForeignKey('table3.Component_of_Paper_ID'))
-    questions = relationship('Table1', backref='topic')
+    Topic_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
+    Topic_Name: Mapped[str] = mapped_column(String)
+    Component_of_Paper_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Component_of_Paper.Component_of_Paper_ID'))
+    questions = relationship('Questions', backref='topic')
 
-class Table3(Base):
-    __tablename__ = 'Component of Paper'
+class Component_of_Paper(db.Model):
+    __tablename__ = 'Component_of_Paper'
 
-    Component_of_Paper_ID = Column(Integer, primary_key=True)
-    Component_Name = Column(String)
-    Marks = Column(Integer)
-    Paper_ID = Column(Integer, ForeignKey('table4.Paper_ID'))
-    components = relationship('Table2', backref='paper')
+    Component_of_Paper_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
+    Component_Name: Mapped[str] = mapped_column(String)
+    Marks: Mapped[int] = mapped_column(Integer)
+    Paper_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Paper_Name.Paper_ID'))
+    components = relationship('Topics', backref='paper')
 
-class Table4(Base):
-    __tablename__ = 'Paper Type'
+class Paper_Name(db.Model):
+    __tablename__ = 'Paper_Name'
 
-    Paper_ID = Column(Integer, primary_key=True)
-    Paper_Name = Column(String)
-    components = relationship('Table3', backref='paper')
+    Paper_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
+    Paper_Name: Mapped[str] = mapped_column(String)
+    components = relationship('Component_of_Paper', backref='paper')
 
-class Table5(Base):
-    __tablename__ = 'Assessment Objectives'
+class Assessment_Objectives(db.Model):
+    __tablename__ = 'Assessment_Objectives'
 
-    AO_ID = Column(Integer, primary_key=True)
-    AO_Int_Name = Column(String)
+    AO_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
+    AO_Int_Name: Mapped[str] = mapped_column(String)
 
-class Table6(Base):
-    __tablename__ = 'AOs By Paper'
+class AOs_By_Paper(db.Model):
+    __tablename__ = 'AOs_By_Paper'
 
-    QID = Column(Integer, ForeignKey('table1.QiD'), primary_key=True)
-    AO_ID = Column(Integer, ForeignKey('table5.AO_ID'), primary_key=True)
-    question = relationship('Table1', backref='aos')
-    ao = relationship('Table5', backref='questions')
+    QID: Mapped[int] = mapped_column(Integer, ForeignKey('Questions.QiD'), primary_key=True)
+    AO_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Assessment_Objectives.AO_ID'), primary_key=True)
+    question = relationship('Questions', backref='aos')
+    ao = relationship('Assessment_Objectives', backref='questions')
 
+    __table_args__ = (
+        PrimaryKeyConstraint('QID','AO_ID'),
+    )
+
+AOs_By_Paper = Table(
+    "AOs_By_Paper", Column("QID", ForeignKey("QiD"))
+    "AOs_By_Paper", Column("AO_ID", ForeignKey("QiD")),
+)
     
-dbtables = [Table1, Table2, Table3, Table4, Table5, Table6]
+# dbtables = [Table1, Table2, Table3, Table4, Table5, Table6]
 
 
 # Table1
