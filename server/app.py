@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.middleware.proxy_fix import ProxyFix
 from sqlalchemy.orm import DeclarativeBase
-from models import db
+# from models import db
 
 app =Flask(__name__)
 
@@ -23,9 +23,9 @@ def return_home():
         'message': "Hello World!"
     })
 
-# db = SQLAlchemy(model_class=Base)    
+db = SQLAlchemy(model_class=Base)    
 
-# from models import User
+import models
 
 db.init_app(app)
 

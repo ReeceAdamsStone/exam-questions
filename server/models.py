@@ -1,20 +1,31 @@
+from __future__ import annotations
 from sqlalchemy import Integer, String, ForeignKey, Table, Column
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.schema import PrimaryKeyConstraint
+from app import db
+from typing import List
 # from app import db  
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
+
+AOs_By_Paper = Table(
+    "AOs_By_Paper",
+    db.Model.metadata,
+    Column("QID", ForeignKey('Questions.QiD'), primary_key=True),
+    Column("AO_ID", ForeignKey('Assessment_Objectives.AO_ID'), primary_key=True),
+)
 
 class Questions(db.Model):
+    __tablename__ = 'Questions'
     
-    QiD: Mapped[int] = mapped_column(Integer, ForeignKey('AOs_By_Paper.QID'), primary_key=True)
+    # QiD: Mapped[int] = mapped_column(Integer, ForeignKey('AOs_By_Paper.QID'), primary_key=True)
+    QiD: Mapped[int] = mapped_column(Integer, primary_key=True)
     Question_String: Mapped[str] = mapped_column(String)
     Topic_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Topics.Topic_ID'))
     Supporting_Material: Mapped[str] = mapped_column(String)
     # objectives = relationship('AOs_By_Paper', backref='aos_by_Q')
 
-    objectives: Mapped[List[Assessment_Objectives]] = relationship(secondary=AOs_By_Paper)
+    objectives: Mapped[List[Assessment_Objectives]] = relationship(secondary=AOs_By_Paper, back_populates="aOquestions")
 
 class Topics(db.Model):
     __tablename__ = 'Topics'
@@ -45,23 +56,20 @@ class Assessment_Objectives(db.Model):
 
     AO_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
     AO_Int_Name: Mapped[str] = mapped_column(String)
+    aOquestions: Mapped[List[Questions]] = relationship(secondary=AOs_By_Paper, back_populates="objectives")
 
-class AOs_By_Paper(db.Model):
-    __tablename__ = 'AOs_By_Paper'
+# class AOs_By_Paper(db.Model):
+#     __tablename__ = 'AOs_By_Paper'
 
-    QID: Mapped[int] = mapped_column(Integer, ForeignKey('Questions.QiD'), primary_key=True)
-    AO_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Assessment_Objectives.AO_ID'), primary_key=True)
-    question = relationship('Questions', backref='aos')
-    ao = relationship('Assessment_Objectives', backref='questions')
+#     QID: Mapped[int] = mapped_column(Integer, ForeignKey('Questions.QiD'), primary_key=True)
+#     AO_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Assessment_Objectives.AO_ID'), primary_key=True)
+#     question = relationship('Questions', backref='aos')
+#     ao = relationship('Assessment_Objectives', backref='questions')
 
-    __table_args__ = (
-        PrimaryKeyConstraint('QID','AO_ID'),
-    )
+#     __table_args__ = (
+#         PrimaryKeyConstraint('QID','AO_ID'),
+#     )
 
-AOs_By_Paper = Table(
-    "AOs_By_Paper", Column("QID", ForeignKey("QiD"))
-    "AOs_By_Paper", Column("AO_ID", ForeignKey("QiD")),
-)
     
 # dbtables = [Table1, Table2, Table3, Table4, Table5, Table6]
 
