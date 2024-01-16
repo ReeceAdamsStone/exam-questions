@@ -1,6 +1,7 @@
 from classes import *
 from flask_sqlalchemy import SQLAlchemy
 from models import *
+from app import app
 
 
 LP1Q5Strings = [
@@ -30,31 +31,44 @@ LP1Q5Strings = [
 
     "Either: Write the opening of a story suggested by this picture. OR: Write the opening part of a story when a character is put in an unexpected situation.",
 
-    "Either: Write a story in which a photograph plays a significant part. Or: Write a description suggested by this photograph:"
+    "Either: Write a story in which a photograph plays a significant part. Or: Write a description suggested by this photograph:",
 ]
 
-for question_string in LP1Q5Strings:
-    lp1q5_instance = LP1Q5(question_string)
 
-    # Note: Adjust the models and relationships based on your actual setup
-    db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[0]}'))
-    
-    db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[1]}'))
-    
-    db.session.add(Paper_Name(Paper_Name=lp1q5_instance.paper_name))
-    
-    db.session.add(Component_of_Paper(Component_Name=lp1q5_instance.paper_component, Marks=lp1q5_instance.marks, Paper_ID=1))
-    
-    db.session.add(Topics(Topic_Name=lp1q5_instance.topic, Component_of_Paper_ID=1))
-    
-    db.session.add(Questions(Question_String=lp1q5_instance.question_string, Topic_ID=1, Supporting_Material=lp1q5_instance.supporting_material))
-    
-    db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[0]}').first().AO_ID))
-    
-    db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[1]}').first().AO_ID))
+with app.app_context():
+    for question_string in LP1Q5Strings:
+        lp1q5_instance = LP1Q5(question_string)
+
+        # Add Assessment Objectives
+        db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[0]}'))
+        result_ao_1 = db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[0]}').first()
+        if result_ao_1:
+            db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_1.AO_ID))
+
+        db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[1]}'))
+        result_ao_2 = db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[1]}').first()
+        if result_ao_2:
+            db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_2.AO_ID))
+
+        # Add the remaining objects
+        db.session.add(Paper_Name(Paper_Name=lp1q5_instance.paper_name))
+        db.session.add(Component_of_Paper(Component_Name=lp1q5_instance.paper_component, Marks=lp1q5_instance.marks, Paper_ID=1))
+        db.session.add(Topics(Topic_Name=lp1q5_instance.topic, Component_of_Paper_ID=1))
+        db.session.add(Questions(Question_String=lp1q5_instance.question_string, Topic_ID=1, Supporting_Material=lp1q5_instance.supporting_material))
+
+        # Only add AO relationships if the AO_ID exists
+        result_ao_1 = db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[0]}').first()
+        if result_ao_1:
+            db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_1.AO_ID))
+
+        result_ao_2 = db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[1]}').first()
+        if result_ao_2:
+            db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_2.AO_ID))
+
     db.session.commit()
 
+
 # Close the session
-db.session.close()
+    # db.session.close()
 
 # auto incremention of ids? db enginge? ao mapping to questions?
