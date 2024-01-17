@@ -2,6 +2,7 @@ from classes import *
 from flask_sqlalchemy import SQLAlchemy
 from models import *
 from app import app
+from typing import List
 
 
 LP1Q5Strings = [
@@ -34,24 +35,38 @@ LP1Q5Strings = [
     "Either: Write a story in which a photograph plays a significant part. Or: Write a description suggested by this photograph:",
 ]
 
+def add_assessment_objective(ao_name: str) -> int:
+    # Check if the Assessment Objective already exists
+    existing_ao = db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Assessment Objective {ao_name}').first()
+
+    if not existing_ao:
+        # If it doesn't exist, add it to the database
+        new_ao = Assessment_Objectives(AO_Int_Name=f'Assessment Objective {ao_name}')
+        db.session.add(new_ao)
+        db.session.flush()
+        return new_ao.AO_ID
+
+    return existing_ao.AO_ID
+
 
 with app.app_context():
     for question_string in LP1Q5Strings:
         lp1q5_instance = LP1Q5(question_string)
 
-        # Add Assessment Objectives
-        db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[0]}'))
-        result_ao_1 = db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[0]}').first()
-        if result_ao_1:
-            db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_1.AO_ID))
+        # # Add Assessment Objectives
+        # ao_id_1 = add_assessment_objective(lp1q5_instance.ao_id[0])
+        # db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=ao_id_1))
 
-        db.session.add(Assessment_Objectives(AO_Int_Name=f'Assessment Objective {lp1q5_instance.ao_id[1]}'))
-        result_ao_2 = db.session.query(Assessment_Objectives).filter_by(AO_Int_Name=f'Objective {lp1q5_instance.ao_id[1]}').first()
-        if result_ao_2:
-            db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_2.AO_ID))
+        # ao_id_2 = add_assessment_objective(lp1q5_instance.ao_id[1])
+        # db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=ao_id_2))
 
-        # Add the remaining objects
-        db.session.add(Paper_Name(Paper_Name=lp1q5_instance.paper_name))
+    # Create a variable of the paper name by queryingthe db in the Paper Name table, filtering by the first paper name property of the lp1q5 class 
+        paper_name_instance = db.session.query(Paper_Name).filter_by(Paper_Name=lp1q5_instance.paper_name).first()
+    # If the paper name doesn't exist, add a new record
+        if not paper_name_instance:
+            paper_name_instance = Paper_Name(Paper_Name=lp1q5_instance.paper_name)
+        db.session.add(paper_name_instance)
+        
         db.session.add(Component_of_Paper(Component_Name=lp1q5_instance.paper_component, Marks=lp1q5_instance.marks, Paper_ID=1))
         db.session.add(Topics(Topic_Name=lp1q5_instance.topic, Component_of_Paper_ID=1))
         db.session.add(Questions(Question_String=lp1q5_instance.question_string, Topic_ID=1, Supporting_Material=lp1q5_instance.supporting_material))
@@ -66,9 +81,3 @@ with app.app_context():
             db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_2.AO_ID))
 
     db.session.commit()
-
-
-# Close the session
-    # db.session.close()
-
-# auto incremention of ids? db enginge? ao mapping to questions?
