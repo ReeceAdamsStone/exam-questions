@@ -88,3 +88,56 @@ LP2Q5Strings = [
 
     "Many university degrees these days are barely worth the paper they’re written on. Write a speech for your school assembly in which you argue whether or not a college or university education is essential for getting a good job"
 ]
+
+
+def count_strings(input_list):
+    """
+    Count the number of strings in a list.
+
+    Parameters:
+    - input_list (list): List of elements.
+
+    Returns:
+    - int: Count of strings in the list.
+    """
+    if not input_list:
+        return 0
+    
+    string_count = sum(isinstance(item, str) for item in input_list)
+    return string_count
+
+
+def count_strings_in_lists(*lists):
+    """
+    Count the number of strings in multiple lists.
+
+    Parameters:
+    - *lists (list): Variable number of lists.
+
+    Returns:
+    - int: Total count of strings in all lists.
+    """
+    total_string_count = 0
+
+    for input_list in lists:
+        if not input_list:
+            continue  # Skip empty lists
+
+        string_count = sum(isinstance(item, str) for item in input_list)
+        total_string_count += string_count
+
+    return total_string_count
+
+
+total_string_count = count_strings_in_lists(LP1Q5Strings, LP2Q5Strings, AFStrings)
+
+
+
+lp1q5_string_count = count_strings(LP1Q5Strings)
+lp2q5_string_count = count_strings(LP2Q5Strings)
+af_string_count = count_strings(AFStrings)
+
+print(f"LP1Q5 String Count: {lp1q5_string_count}")
+print(f"LP2Q5 String Count: {lp2q5_string_count}")
+print(f"Animal Farm String Count: {af_string_count}")
+print(f"Total Question Entires: {total_string_count}")

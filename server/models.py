@@ -39,7 +39,7 @@ class Component_of_Paper(db.Model):
     __tablename__ = 'Component_of_Paper'
 
     Component_of_Paper_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
-    Component_Name: Mapped[str] = mapped_column(String, unique= True)
+    Component_Name: Mapped[str] = mapped_column(String)
     Marks: Mapped[int] = mapped_column(Integer)
     Paper_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Paper_Name.Paper_ID'))
     components = relationship('Topics', backref='paper')

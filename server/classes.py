@@ -20,7 +20,7 @@ class QuestionData:
 
 class LP2Q5(QuestionData):
     def __init__(self, question_string):
-        super().__init__(question_string, marks=40, ao_id=[5, 6], paper_component="Section B", paper_name="Language Paper 2", topic="Viewpoint Writing", supporting_material=None)
+        super().__init__(question_string, marks=40, ao_id=[5, 6], paper_component="Section B", paper_name="Language Paper 2", topic="Viewpoint Writing", supporting_material=False)
 
 
 class LP1Q5(QuestionData):
