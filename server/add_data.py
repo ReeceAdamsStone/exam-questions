@@ -67,7 +67,47 @@ with app.app_context():
             paper_name_instance = Paper_Name(Paper_Name=lp1q5_instance.paper_name)
         db.session.add(paper_name_instance)
         
-        db.session.add(Component_of_Paper(Component_Name=lp1q5_instance.paper_component, Marks=lp1q5_instance.marks, Paper_ID=1))
+        # Check if the Paper_Name already exists
+        existing_paper = db.session.query(Paper_Name).filter_by(Paper_Name=lp1q5_instance.paper_name).first()
+
+        if not existing_paper:
+            # If it doesn't exist, add it to the database
+            new_paper = Paper_Name(Paper_Name=lp1q5_instance.paper_name)
+            db.session.add(new_paper)
+            db.session.flush()  # Ensure the new paper gets an ID
+
+            paper_id = new_paper.Paper_ID
+        else:
+            # If it exists, use its ID
+            paper_id = existing_paper.Paper_ID
+
+        # Check if the Component_of_Paper already exists for this paper
+        existing_component = db.session.query(Component_of_Paper).filter_by(
+            Component_Name=lp1q5_instance.paper_component,
+            Marks=lp1q5_instance.marks,
+            Paper_ID=paper_id
+        ).first()
+
+        if not existing_component:
+            # If it doesn't exist, add it to the database
+            new_component = Component_of_Paper(
+                Component_Name=lp1q5_instance.paper_component,
+                Marks=lp1q5_instance.marks,
+                Paper_ID=paper_id
+            )
+            db.session.add(new_component)
+            db.session.flush()  # Ensure the new component gets an ID
+
+            component_id = new_component.Component_of_Paper_ID
+        else:
+            # If it exists, use its ID
+            component_id = existing_component.Component_of_Paper_ID
+
+        # Now you can use paper_id and component_id in your subsequent code for this question
+
+
+
+
         db.session.add(Topics(Topic_Name=lp1q5_instance.topic, Component_of_Paper_ID=1))
         db.session.add(Questions(Question_String=lp1q5_instance.question_string, Topic_ID=1, Supporting_Material=lp1q5_instance.supporting_material))
 
@@ -81,3 +121,47 @@ with app.app_context():
             db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=result_ao_2.AO_ID))
 
     db.session.commit()
+
+
+    
+	
+# Assessment Objectives Table - 
+
+# Currently;
+# 	14 instances of each assessment objective [5, 6]
+# 	28 individual IDs (1-28)
+
+# Should be; 
+# 	One instance of AO5
+# 	One instance of AO6
+# 	AO5 ID
+# 	AO6 ID
+
+# Task --> Prepopulate the AO ID column with the 1-6 numbers (however many there are)
+
+
+# Component of Papter Table - 
+
+# Currently;
+# 	Component ID - 14 instances incrementing
+# 	Component Name - Repeated for every instance of the ID
+
+# Should be; 
+# 	One instance of ID and Name for each component
+
+	
+
+# Topics Talble -
+
+# Also auto incrementing when there should be unique IDs
+
+# Questions Table - 
+
+# Supporting Material is value 1 (for true?); need to be able to source the supporting material somehow 
+
+
+# AOs By Paper is empty
+    
+
+
+
