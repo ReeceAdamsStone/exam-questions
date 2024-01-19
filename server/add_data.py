@@ -48,59 +48,77 @@ def add_assessment_objective(ao_name: str) -> int:
 
     return existing_ao.AO_ID
 
+def get_paper_component_topic_ids(session, paper_name, component_name, topic_name, marks):
+    # Check if the Paper_Name already exists
+    existing_paper = session.query(Paper_Name).filter_by(Paper_Name=paper_name).first()
+
+    if not existing_paper:
+        # If it doesn't exist, add it to the database
+        new_paper = Paper_Name(Paper_Name=paper_name)
+        session.add(new_paper)
+        session.flush()  # Ensure the new paper gets an ID
+        paper_id = new_paper.Paper_ID
+    else:
+        # If it exists, use its ID
+        paper_id = existing_paper.Paper_ID
+
+    # Check if the Component_of_Paper already exists for this paper
+    existing_component = session.query(Component_of_Paper).filter_by(
+        Component_Name=component_name,
+        Marks=marks,
+        Paper_ID=paper_id
+    ).first()
+
+    if not existing_component:
+        # If it doesn't exist, add it to the database
+        new_component = Component_of_Paper(
+            Component_Name=component_name,
+            Marks=marks,
+            Paper_ID=paper_id
+        )
+        session.add(new_component)
+        session.flush()  # Ensure the new component gets an ID
+        component_id = new_component.Component_of_Paper_ID
+    else:
+        # If it exists, use its ID
+        component_id = existing_component.Component_of_Paper_ID
+
+    # Check if the Topic already exists for this component
+    existing_topic = session.query(Topics).filter_by(
+        Topic_Name=topic_name,
+        Component_of_Paper_ID=component_id
+    ).first()
+
+    if not existing_topic:
+        # If it doesn't exist, add it to the database
+        new_topic = Topics(
+            Topic_Name=topic_name,
+            Component_of_Paper_ID=component_id
+        )
+        session.add(new_topic)
+        session.flush()  # Ensure the new topic gets an ID
+        topic_id = new_topic.Topic_ID
+    else:
+        # If it exists, use its ID
+        topic_id = existing_topic.Topic_ID
+
+    return paper_id, component_id, topic_id
+
+
 
 with app.app_context():
     for question_string in LP1Q5Strings:
         lp1q5_instance = LP1Q5(question_string)
 
-        # # Add Assessment Objectives
-        # ao_id_1 = add_assessment_objective(lp1q5_instance.ao_id[0])
-        # db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=ao_id_1))
+        # Use the function to get paper_id, component_id, and topic_id
+        paper_id, component_id, topic_id = get_paper_component_topic_ids(
+            db.session,
+            lp1q5_instance.paper_name,
+            lp1q5_instance.paper_component,
+            lp1q5_instance.topic,
+            lp1q5_instance.marks
+        )
 
-        # ao_id_2 = add_assessment_objective(lp1q5_instance.ao_id[1])
-        # db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=ao_id_2))
-
-    # Create a variable of the paper name by queryingthe db in the Paper Name table, filtering by the first paper name property of the lp1q5 class 
-        paper_name_instance = db.session.query(Paper_Name).filter_by(Paper_Name=lp1q5_instance.paper_name).first()
-    # If the paper name doesn't exist, add a new record
-        if not paper_name_instance:
-            paper_name_instance = Paper_Name(Paper_Name=lp1q5_instance.paper_name)
-        db.session.add(paper_name_instance)
-        
-        # Check if the Paper_Name already exists
-        existing_paper = db.session.query(Paper_Name).filter_by(Paper_Name=lp1q5_instance.paper_name).first()
-
-        if not existing_paper:
-            # If it doesn't exist, add it to the database
-            new_paper = Paper_Name(Paper_Name=lp1q5_instance.paper_name)
-            db.session.add(new_paper)
-            db.session.flush()  # Ensure the new paper gets an ID
-
-            paper_id = new_paper.Paper_ID
-        else:
-            # If it exists, use its ID
-            paper_id = existing_paper.Paper_ID
-
-        # Check if the Component_of_Paper already exists for this paper
-        existing_component = db.session.query(Component_of_Paper).filter_by(Component_Name=lp1q5_instance.paper_component,Marks=lp1q5_instance.marks,Paper_ID=paper_id).first()
-
-        if not existing_component:
-            # If it doesn't exist, add it to the database
-            new_component = Component_of_Paper(Component_Name=lp1q5_instance.paper_component,Marks=lp1q5_instance.marks,Paper_ID=paper_id)
-            db.session.add(new_component)
-            db.session.flush()  # Ensure the new component gets an ID
-
-            component_id = new_component.Component_of_Paper_ID
-        else:
-            # If it exists, use its ID
-            component_id = existing_component.Component_of_Paper_ID
-
-        # Now you can use paper_id and component_id in your subsequent code for this question
-
-
-
-
-        db.session.add(Topics(Topic_Name=lp1q5_instance.topic, Component_of_Paper_ID=1))
         db.session.add(Questions(Question_String=lp1q5_instance.question_string, Topic_ID=1, Supporting_Material=lp1q5_instance.supporting_material))
 
         # Only add AO relationships if the AO_ID exists
@@ -157,3 +175,9 @@ with app.app_context():
 
 
 
+        # # Add Assessment Objectives
+        # ao_id_1 = add_assessment_objective(lp1q5_instance.ao_id[0])
+        # db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=ao_id_1))
+
+        # ao_id_2 = add_assessment_objective(lp1q5_instance.ao_id[1])
+        # db.session.add(AOs_By_Paper(QID=db.session.query(Questions).filter_by(Question_String=lp1q5_instance.question_string).first().QiD, AO_ID=ao_id_2))

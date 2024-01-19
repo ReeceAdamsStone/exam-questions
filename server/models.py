@@ -31,7 +31,7 @@ class Topics(db.Model):
     __tablename__ = 'Topics'
 
     Topic_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
-    Topic_Name: Mapped[str] = mapped_column(String)
+    Topic_Name: Mapped[str] = mapped_column(String, unique=True)
     Component_of_Paper_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Component_of_Paper.Component_of_Paper_ID'))
     questions = relationship('Questions', backref='topic')
 
@@ -39,7 +39,7 @@ class Component_of_Paper(db.Model):
     __tablename__ = 'Component_of_Paper'
 
     Component_of_Paper_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
-    Component_Name: Mapped[str] = mapped_column(String)
+    Component_Name: Mapped[str] = mapped_column(String, unique= True)
     Marks: Mapped[int] = mapped_column(Integer)
     Paper_ID: Mapped[int] = mapped_column(Integer, ForeignKey('Paper_Name.Paper_ID'))
     components = relationship('Topics', backref='paper')
@@ -48,7 +48,7 @@ class Paper_Name(db.Model):
     __tablename__ = 'Paper_Name'
 
     Paper_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
-    Paper_Name: Mapped[str] = mapped_column(String)
+    Paper_Name: Mapped[str] = mapped_column(String, unique= True)
     components = relationship('Component_of_Paper', backref='paper')
 
 class Assessment_Objectives(db.Model):
@@ -57,3 +57,4 @@ class Assessment_Objectives(db.Model):
     AO_ID: Mapped[int] = mapped_column(Integer, primary_key=True)
     AO_Int_Name: Mapped[str] = mapped_column(String)
     aOquestions: Mapped[List[Questions]] = relationship(secondary=AOs_By_Paper, back_populates="objectives")
+    
