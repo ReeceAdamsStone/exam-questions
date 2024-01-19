@@ -93,6 +93,20 @@ with app.app_context():
 
         db.session.add(Questions(Question_String=lit_animal_farm_instance.question_string, Topic_ID=2, Supporting_Material=lit_animal_farm_instance.supporting_material))
 
+
+
+    for question2_string in LP2Q5Strings:
+        lp2q5_instance = LP2Q5(question2_string)
+        paper_id, component_id, topic_id = get_paper_component_topic_ids(
+            db.session,
+            lp2q5_instance.paper_name,
+            lp2q5_instance.paper_component,
+            lp2q5_instance.topic,
+            lp2q5_instance.marks
+        )
+
+        db.session.add(Questions(Question_String=lp2q5_instance.question_string, Topic_ID=3, Supporting_Material=lp2q5_instance.supporting_material))
+
     db.session.commit()
 
 

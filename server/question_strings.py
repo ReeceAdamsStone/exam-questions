@@ -49,3 +49,42 @@ AFStrings = [
     "‘You can’t have power without corruption’ To what extent do you agree? Write about: • How Orwell presents those in power in the novel • How Orwell presents power and corruption through the way he writes.",
     "How does Orwell use the principles of Animalism to warn his readers about the society at the time? Write about: • How Animalism is presented in the novel • How the corruption of Animalism is presented in the novel."
 ]
+
+
+LP2Q5Strings = [
+    "As a developing continent, Africa should be given financial aid by richer countries in the West to support them to improve the quality of life for its citizens. Write a letter to a Government Minister in which you argue your opinion on this statement.",
+
+    "Western tourists are slowly but surely destroying the natural habitat of hundreds of animals in what they describe as ‘safaris’. Write the text for a leaflet aimed at people attending a safari park that advises them how to ensure they do not damage the ecosystems they visit.",
+
+    "Regardless of their crimes or misdemeanours, children in prison still deserve love, care, and support. They are currently not receiving this. Write the text for a speech to be delivered to a local Prison Governor in which you explain your opinion on this statement.",
+
+    "Every council should be expected to provide decent, high-quality services to support and care for homeless people in their area. Write an article for a local newspaper in which you persuade its readers to support your opinion on this statement.",
+
+    "Festivals like Easter and Christmas have nothing to do with family and presents; they should be preserved as a memory to the religious nature of their history. Write an article for a broadsheet newspaper in which you argue your point of view on this statement.",
+
+    "All young people should be given the opportunity to participate in overseas expeditions as part of their school experience. Write the text of an essay in which you explain the possible reasons either for or against this opinion and proposal.",
+
+    "While public transport is by far the safest method of transport, all passengers should be ready for a disaster. Write the text for a leaflet to be distributed on board trains that seeks to instruct passengers how to conduct themselves in an emergency situation.",
+
+    "Public sector workers such as nurses and teachers deserve higher wages, not underworked and selfish footballers. Write a letter to your local MP in which you persuade them to agree with your opinions on this statement.",
+
+    "It has never been easy being a teenager, but young people today face more challenges than they have ever done. Write a speech for your school assembly, stating whether or not you agree with this view.",
+
+    "Nurses and teachers are public servants and therefore should not go on strike. Write a letter to your local newspaper, stating whether or not you think this is right.",
+
+    "School uniforms stifle creativity and individuality. Write a speech for your school assembly, stating whether or not you think school uniforms should be worn.",
+
+    "We live in a ‘throwaway society’ where people have forgotten the value of the things they have. Write an article for your school newspaper, stating whether or not you think this is true.",
+
+    "Young people today see little value in exercise. Write a speech for your school assembly, stating whether or not you agree with this view.",
+
+    "People assume it’s the younger generation that is rude, selfish and ignorant but this isn't always the case. Write an article for a newspaper in which you voice your opinion on this matter.",
+
+    "People who eat meat argue that it’s ‘natural’ for humans to consume animals. But is this true or just an excuse to ignore the horrific ways in which animals are killed for food? Write an article for your school magazine in which you argue whether or not we should all be vegetarian.",
+
+    "Heavy users of social media are less happy and have more problems at school and home. Write a letter to your local newspaper, arguing whether or not you think this is true.",
+
+    "Children learn more from their experiences outside school than they do from their lessons inside. Write a speech for your school Leavers’ Assembly to explain what you think makes a good education.",
+
+    "Many university degrees these days are barely worth the paper they’re written on. Write a speech for your school assembly in which you argue whether or not a college or university education is essential for getting a good job"
+]
