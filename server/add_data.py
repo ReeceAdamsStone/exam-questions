@@ -82,19 +82,11 @@ with app.app_context():
             paper_id = existing_paper.Paper_ID
 
         # Check if the Component_of_Paper already exists for this paper
-        existing_component = db.session.query(Component_of_Paper).filter_by(
-            Component_Name=lp1q5_instance.paper_component,
-            Marks=lp1q5_instance.marks,
-            Paper_ID=paper_id
-        ).first()
+        existing_component = db.session.query(Component_of_Paper).filter_by(Component_Name=lp1q5_instance.paper_component,Marks=lp1q5_instance.marks,Paper_ID=paper_id).first()
 
         if not existing_component:
             # If it doesn't exist, add it to the database
-            new_component = Component_of_Paper(
-                Component_Name=lp1q5_instance.paper_component,
-                Marks=lp1q5_instance.marks,
-                Paper_ID=paper_id
-            )
+            new_component = Component_of_Paper(Component_Name=lp1q5_instance.paper_component,Marks=lp1q5_instance.marks,Paper_ID=paper_id)
             db.session.add(new_component)
             db.session.flush()  # Ensure the new component gets an ID
 
