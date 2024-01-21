@@ -58,3 +58,4 @@ class Assessment_Objectives(db.Model):
     AO_Int_Name: Mapped[str] = mapped_column(String)
     aOquestions: Mapped[List[Questions]] = relationship(secondary=AOs_By_Paper, back_populates="objectives")
     
+    
