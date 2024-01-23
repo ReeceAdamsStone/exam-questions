@@ -107,6 +107,45 @@ with app.app_context():
 
         db.session.add(Questions(Question_String=lp2q5_instance.question_string, Topic_ID=3, Supporting_Material=lp2q5_instance.supporting_material))
 
+
+    for acc_string in ACCQuestions:
+        lit_acc_instance = LitACC(acc_string)
+        paper_id, component_id, topic_id = get_paper_component_topic_ids(
+            db.session,
+            lit_acc_instance.paper_name,
+            lit_acc_instance.paper_component,
+            lit_acc_instance.topic,
+            lit_acc_instance.marks
+        )
+
+        db.session.add(Questions(Question_String=lit_acc_instance.question_string, Topic_ID=4, Supporting_Material=lit_acc_instance.supporting_material))
+
+    for shakespeare_string in ShakespeareQuestions:
+        shakespeare_instance = LitShakespeare(shakespeare_string)
+        paper_id, component_id, topic_id = get_paper_component_topic_ids(
+            db.session,
+            shakespeare_instance.paper_name,
+            shakespeare_instance.paper_component,
+            shakespeare_instance.topic,
+            shakespeare_instance.marks
+        )
+
+        db.session.add(Questions(Question_String=shakespeare_instance.question_string, Topic_ID=5, Supporting_Material=shakespeare_instance.supporting_material))
+
+
+    for anthology_string in AnthologyPoetryQuestions:
+        anthology_instance = LitSeenPoetry(anthology_string)
+        paper_id, component_id, topic_id = get_paper_component_topic_ids(
+            db.session,
+            anthology_instance.paper_name,
+            anthology_instance.paper_component,
+            anthology_instance.topic,
+            anthology_instance.marks
+        )
+
+        db.session.add(Questions(Question_String=anthology_instance.question_string, Topic_ID=6, Supporting_Material=anthology_instance.supporting_material))
+
+
     db.session.commit()
 
 

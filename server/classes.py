@@ -66,6 +66,7 @@ class LP1Q5(QuestionData):
     def __init__(self, question_string):
         super().__init__(question_string, marks=40, ao_id=[5, 6], paper_component="Section B", paper_name="Language Paper 1", topic="Creative Writing", supporting_material=True)
 
+
 class LitShakespeare(QuestionData):
 
     """
