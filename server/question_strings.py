@@ -90,6 +90,65 @@ LP2Q5Strings = [
 ]
 
 
+ACCQuestions = [
+    "Starting with this extract, how does Dickens present the importance of family? Write about:\n• how Dickens presents family in this extract\n• how Dickens presents family in the novel as a whole.",
+    "Starting with this extract, how does Dickens present the theme of charity and Christmas Spirit? Write about:\n• how Dickens presents the theme of charity and Christmas spirit in this extract\n• how Dickens presents the theme of charity and Christmas spirit in the novel as a whole.",
+    "Starting with this extract, how does Dickens create a sense of atmosphere in A Christmas Carol? Write about:\n• how Dickens creates a sense of atmosphere in this extract\n• how Dickens creates a sense of atmosphere in the novel as a whole.",
+    "Starting with this extract, how does Dickens present the theme of regret in A Christmas Carol? Write about:\n• how Dickens presents the theme of regret in this extract\n• how Dickens presents the theme of regret in the novel as a whole.",
+    "Starting with this extract, how does Dickens use the supernatural to create intrigue and excitement in A Christmas Carol? Write about:\n• how Dickens uses the supernatural in this extract\n• how Dickens uses the supernatural in the novel as a whole.",
+    "Starting with this extract, how does Dickens present the theme of poverty in A Christmas Carol? Write about:\n• how Dickens presents the theme of poverty in this extract\n• how Dickens presents the theme of poverty in the novel as a whole.",
+    "Starting with this extract, how does Dickens present the theme of redemption in A Christmas Carol? Write about:\n• how Dickens presents the theme of redemption in this extract\n• how Dickens presents the theme of redemption in the novel as a whole.",
+    "Starting with this extract, how does Dickens show the transformation of Scrooge’s character in A Christmas Carol? Write about:\n• how Dickens shows the transformation in this extract\n• how Dickens shows the transformation in the novel as a whole.",
+    "Starting with this extract, how does Dickens explore the theme of Christmas? Write about:\n• How Dickens presents Christmas in this extract?\n• How Christmas is presented in the novella as a whole?"
+]
+
+
+ShakespeareQuestions = [
+    "Starting with this extract, how does Shakespeare present Macbeth as a powerful character? Write about:\n• how Shakespeare presents Macbeth as a powerful character in this extract\n• how Shakespeare presents Macbeth as a powerful character in the play as a whole",
+    "Starting with this extract, how does Shakespeare present Lady Macbeth as a dangerous character? Write about:\n• how Shakespeare presents Lady Macbeth as a dangerous character in this extract\n• how Shakespeare presents Lady Macbeth as a dangerous character in the play as a whole",
+    "Starting with this extract, how does Shakespeare address the issue of morality? Write about:\n• how Shakespeare presents the theme of morality in this extract\n• how Shakespeare presents the theme of morality in the play as a whole",
+    "Starting with this extract, how does Shakespeare present Lady Macbeth as a powerful woman? Write about:\n• how Shakespeare presents Lady Macbeth as a powerful woman in this extract\n• how Shakespeare presents Lady Macbeth as a powerful woman in the play as a whole",
+    "Starting with this extract, how does Shakespeare present the theme of morality? Write about:\n• how Shakespeare presents the theme of morality in this extract\n• how Shakespeare presents the theme of morality in the play as a whole",
+    "Starting with this extract, how does Shakespeare present the idea of the supernatural? Write about:\n• how Shakespeare presents the idea of the supernatural in this extract\n• how Shakespeare presents the idea of the supernatural in the play as a whole",
+    "Starting with this extract, how does Shakespeare present the theme of guilt? Write about:\n• how Shakespeare presents the theme of guilt in this extract\n• how Shakespeare presents the theme of guilt in the play as a whole",
+    "Starting with this speech, explain how far you think Shakespeare presents Macbeth’s inner conflict. Write about:\n• how Shakespeare presents Macbeth’s inner conflict in this speech\n• how Shakespeare presents Macbeth’s inner conflict in the play as a whole",
+    "Starting with this speech, explain how far you think Shakespeare presents the theme of guilt. Write about:\n• how Shakespeare presents the theme of guilt in this speech\n• how Shakespeare presents the theme of guilt in the play as a whole",
+    "Starting with this speech, explain how Shakespeare presents the relationship between Macbeth and Lady Macbeth. Write about:\n• how Shakespeare presents their relationship in this speech\n• how Shakespeare presents their relationship in the play as a whole"
+]
+
+
+AnthologyPoetryQuestions = [
+    "Compare how poets present the effects of memory on people in Poppies and in one other poem from Power and Conflict.",
+    "Compare how poets present ideas about power in Bayonet Charge and in one other poem from Power and Conflict.",
+    "Compare the ways poets present the power of man in Storm on the Island and in one other poem from Power and Conflict.",
+    "Compare the ways poets present ideas about the power of the individual in Ozymandias and in one other poem from Power and Conflict.",
+    "Compare the ways poets present ideas about the power of memory in The Emigrée and in one other poem from Power and Conflict.",
+    "Compare the ways poets present ideas about conflict in War Photographer and in one other poem from Power and Conflict.",
+    "Compare the ways poets present the power of memory in My Last Duchess and in one other poem from Power and Conflict.",
+    "Compare the ways poets present ideas about conflict in Remains and in one other poem from Power and Conflict.",
+    "Compare the ways poets present ideas about the power in Extract from The Prelude and in one other poem from Power and Conflict.",
+    "Compare the ways poets present conflict in Exposure and in one other poem from Power and Conflict.",
+    "Compare the ways poets present the abuse of power in ‘London’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present the ideas about power in Tissue and in one other poem in Power and Conflict.",
+    "Compare the ways poets present the power of memory in Kamikaze and in one other poem from Power and Conflict?",
+    "Compare the ways poets present the power of institutions over the individual in Checking Out Me History and in one other poem from Power and Conflict.",
+    "Compare the ways poets present ideas about remembering others in The Charge of the Light Brigade and in one other poem from Power and Conflict.",
+    "Compare the ways poets present the reality of conflict in ‘Bayonet Charge’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present the power of the natural world in ‘Storm on the Island’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present the power of place in ‘The Emigree’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present power in ‘Ozymandias’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present ideas about pride in ‘Ozymandias’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present ideas about anger in ‘London’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present the reality of conflict in ‘Exposure’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present fear in ‘The Prelude’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present memory in ‘My Last Duchess’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present ideas about guilt in ‘Remains’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present individual experiences in ‘War Photographer’ and in one other poem from ‘Power and Conflict’.",
+    "Compare the ways poets present ideas about loss and absence in ‘The Emigree’ and in one other poem from ‘Power and Conflict’."
+]
+
+
+
 def count_strings(input_list):
     """
     Count the number of strings in a list.
@@ -129,15 +188,21 @@ def count_strings_in_lists(*lists):
     return total_string_count
 
 
-total_string_count = count_strings_in_lists(LP1Q5Strings, LP2Q5Strings, AFStrings)
+total_string_count = count_strings_in_lists(LP1Q5Strings, LP2Q5Strings, AFStrings, ACCQuestions, ShakespeareQuestions, AnthologyPoetryQuestions)
 
 
 
 lp1q5_string_count = count_strings(LP1Q5Strings)
 lp2q5_string_count = count_strings(LP2Q5Strings)
 af_string_count = count_strings(AFStrings)
+acc_string_count = count_strings(ACCQuestions)
+shakespeare_string_count = count_strings(ShakespeareQuestions)
+anthology_string_count = count_strings(AnthologyPoetryQuestions)
 
 print(f"LP1Q5 String Count: {lp1q5_string_count}")
 print(f"LP2Q5 String Count: {lp2q5_string_count}")
 print(f"Animal Farm String Count: {af_string_count}")
+print(f"A Christmas Carol String Count: {acc_string_count}")
+print(f"Macbeth String Count: {shakespeare_string_count}")
+print(f"Power and Conflict Poetry String Count: {anthology_string_count}")
 print(f"Total Question Entires: {total_string_count}")
