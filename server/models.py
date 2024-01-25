@@ -11,58 +11,71 @@ from typing import List
 class Questions(db.Model):
     __tablename__ = 'Questions'
 
-    QiD: Mapped[int] = Column(Integer, primary_key=True)
-    Question_String: Mapped[str] = Column(String)
-    Supporting_Material: Mapped[str] = Column(String)
-    Topic_ID: Mapped[int] = Column(Integer, ForeignKey('Topics.Topic_ID'))
-    Component_of_Paper_ID: Mapped[int] = Column(Integer, ForeignKey('Component_of_Paper.Component_of_Paper_ID'))
-    Paper_ID: Mapped[int] = Column(Integer, ForeignKey('Paper_Name.Paper_ID'))
+    QiD: Mapped[int] = mapped_column(primary_key=True)
+    Question_String: Mapped[str] = mapped_column()
+    Supporting_Material: Mapped[str] = mapped_column()
+    Topic_ID: Mapped[int] = mapped_column(ForeignKey('Topic.Topic_ID'))
+    Component_ID: Mapped[int] = mapped_column(ForeignKey('Component_of_Paper.Component_of_Paper_ID'))
+    Paper_ID: Mapped[int] = mapped_column(ForeignKey('PaperType.PaperType_ID'))
 
-    # Relationships
-    topic = relationship('Topics', back_populates='questions')
-    component_of_paper = relationship('Component_of_Paper', back_populates='questions')
-    paper = relationship('Paper_Name', back_populates='questions')
-    objectives = relationship('Assessment_Objectives', secondary='AOs_By_Paper', back_populates='aOquestions')
+    #New Relationships
+    papertype: Mapped["PaperType"] = relationship("PaperType", foreign_keys=[Paper_ID])
+    topic: Mapped["Topic"] = relationship("Topic", foreign_keys=[Topic_ID])
+    component: Mapped["Component_of_Paper"] = relationship("Component_of_Paper", foreign_keys=[Component_ID])
 
-class Topics(db.Model):
-    __tablename__ = 'Topics'
 
-    Topic_ID: Mapped[int] = Column(Integer, primary_key=True)
-    Topic_Name: Mapped[str] = Column(String, unique=True)
+class PaperType(db.Model):
+    __tablename__ = 'PaperType'
 
-    # Relationships
-    questions = relationship('Questions', back_populates='topic')
+    PaperType_ID: Mapped[int] = mapped_column(primary_key=True)
+    Paper_Name: Mapped[str] = mapped_column(unique=True)    
+    
+    # # BiDirectionalRelationships
+    # questions: Mapped[List["Questions"]] = relationship(back_populates="papertype")
+    
+
+class Topic(db.Model):
+    __tablename__ = 'Topic'
+
+    Topic_ID: Mapped[int] = mapped_column(primary_key=True)
+    Component_ID: Mapped[int] = mapped_column(ForeignKey('Questions.Component_ID'))
+    Topic_Name: Mapped[str] = mapped_column(unique=True)
+    Paper_ID: Mapped[int] = mapped_column(ForeignKey('Questions.Paper_ID'))
+
+    # # BiDirectionalRelationships
+    # questions: Mapped[List["Questions"]] = relationship(back_populates="topic")
 
 class Component_of_Paper(db.Model):
     __tablename__ = 'Component_of_Paper'
 
-    Component_of_Paper_ID: Mapped[int] = Column(Integer, primary_key=True)
-    Component_Name: Mapped[str] = Column(String)
-    Marks: Mapped[int] = Column(Integer)
+    Component_of_Paper_ID: Mapped[int] = mapped_column(primary_key=True)
+    Component_Name: Mapped[str] = mapped_column()
+    Marks: Mapped[int] = mapped_column()
+    PaperType_ID: Mapped[int] = mapped_column(ForeignKey('Questions.Paper_ID'))  
+    
+    # # BiDirectionalRelationships
+    # questions: Mapped[List["Questions"]] = relationship(back_populates="component")
 
-    # Relationships
-    questions = relationship('Questions', back_populates='component_of_paper')
+# class Paper_Name(db.Model):
+#     __tablename__ = 'Paper_Name'
 
-class Paper_Name(db.Model):
-    __tablename__ = 'Paper_Name'
+#     Paper_ID: Mapped[int] = Column(Integer, primary_key=True)
+#     Paper_Name: Mapped[str] = Column(String, unique=True)
 
-    Paper_ID: Mapped[int] = Column(Integer, primary_key=True)
-    Paper_Name: Mapped[str] = Column(String, unique=True)
+#     # Relationships
+#     questions = relationship('Questions', back_populates='paper')
 
-    # Relationships
-    questions = relationship('Questions', back_populates='paper')
+# class Assessment_Objectives(db.Model):
+#     __tablename__ = 'Assessment_Objectives'
 
-class Assessment_Objectives(db.Model):
-    __tablename__ = 'Assessment_Objectives'
+#     AO_ID: Mapped[int] = Column(Integer, primary_key=True)
+#     AO_Int_Name: Mapped[str] = Column(String)
 
-    AO_ID: Mapped[int] = Column(Integer, primary_key=True)
-    AO_Int_Name: Mapped[str] = Column(String)
+#     # Relationships
+#     aOquestions = relationship('Questions', secondary='AOs_By_Paper', back_populates='objectives')
 
-    # Relationships
-    aOquestions = relationship('Questions', secondary='AOs_By_Paper', back_populates='objectives')
+# class AOs_By_Paper(db.Model):
+#     __tablename__ = 'AOs_By_Paper'
 
-class AOs_By_Paper(db.Model):
-    __tablename__ = 'AOs_By_Paper'
-
-    QID: Mapped[int] = Column(Integer, ForeignKey('Questions.QiD'), primary_key=True)
-    AO_ID: Mapped[int] = Column(Integer, ForeignKey('Assessment_Objectives.AO_ID'), primary_key=True)
+#     QID: Mapped[int] = Column(Integer, ForeignKey('Questions.QiD'), primary_key=True)
+#     AO_ID: Mapped[int] = Column(Integer, ForeignKey('Assessment_Objectives.AO_ID'), primary_key=True)
