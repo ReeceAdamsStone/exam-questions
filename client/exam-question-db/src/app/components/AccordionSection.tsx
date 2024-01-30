@@ -2,11 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { CheckboxGroup, Checkbox, Button } from "@nextui-org/react";
+import QuestionsCard from "./QuestionsCard";
 
 interface AccordionSectionProps {
   endpoint: string;
   sectionName: string;
   keyField?: string;
+  onFetchQuestions: (questions: Question[]) => void;
 }
 
 interface ComponentData {
@@ -40,6 +42,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
   endpoint,
   sectionName,
   keyField = "id",
+  onFetchQuestions,
   
 }) => {
   const [data, setData] = useState<any[]>([]);
@@ -96,6 +99,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
       
       // Update state with filtered questions
       setQuestions(filteredQuestions);
+      onFetchQuestions(filteredQuestions);
       // Do something with the fetched questions data
       console.log(`Fetched Questions for ${sectionName}:`, filteredQuestions);
     } catch (error) {
@@ -104,14 +108,8 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
   };
 
   return (
-    <div style={{ width: "300px" }}>
+    <div >
       <div
-        style={{
-          width: "300px",
-          cursor: "pointer",
-          padding: "10px",
-          backgroundColor: "#ddd",
-        }}
         onClick={() => setIsSectionOpen((prev) => !prev)}
       >
         {sectionName}
@@ -129,15 +127,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
               </Checkbox>
             ))}
           </CheckboxGroup>
-          <Button onClick={handleFetchQuestions}>Fetch Questions</Button>
-          <div>
-            <h2>Filtered Questions for {sectionName}</h2>
-            <ul>
-              {questions.map((question: Question) => (
-                <li key={question.id}>{question.question_string}</li>
-              ))}
-            </ul>
-          </div>
+          <Button onClick={handleFetchQuestions} className="px-unit-2 py-unit-1 min-w-unit-5xl">Fetch Questions</Button>
         </div>
       )}
     </div>

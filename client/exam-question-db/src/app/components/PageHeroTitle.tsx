@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 function PageHero() {
   return (
-    <div className="w-screen h-screen text-white">
+    <div className="w-screen h-screen">
       <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
         <Image
           className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center"
@@ -22,12 +22,12 @@ function PageHero() {
           </p>
           <div className="flex justify-center mx-auto">
   <Link href="generate-question">
-    <div className="hover:underline text-xl bg-white text-gray-800 font-bold rounded-full py-4 px-8">
+    <div className="hover:underline text-xl font-bold rounded-full py-4 px-8">
       Generate Questions
     </div>
   </Link>
   <Link href="mark-scheme">
-    <div className="ml-4 hover:underline text-xl bg-white text-gray-800 font-bold rounded-full py-4 px-8">
+    <div className="ml-4 hover:underline text-xl font-bold rounded-full py-4 px-8">
       Mark Schemes!
     </div>
   </Link>

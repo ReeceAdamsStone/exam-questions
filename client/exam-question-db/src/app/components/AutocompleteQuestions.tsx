@@ -31,10 +31,9 @@ export default function AutoCompleteQuestions() {
   return (
     <Autocomplete
       defaultItems={questions}
-      label="Autocomplete questions list"
-      placeholder="Search any question"
-      
-      fullWidth={true}
+      label="Search for any quesition here"
+      placeholder="Want to search for a specific question?"
+      description="Try key words like Scrooge, Power or Memory!"
       isLoading={isLoading}
       onOpenChange={(isOpen) => {
         if (isOpen && questions.length === 0) {
