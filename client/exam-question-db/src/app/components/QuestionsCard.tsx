@@ -1,5 +1,6 @@
 // QuestionsCard.jsx
 import React from "react";
+import QuestionContainer from "./QuestionContainer";
 
 interface Question {
   id: number;
@@ -17,12 +18,10 @@ interface QuestionsCardProps {
 const QuestionsCard: React.FC<QuestionsCardProps> = ({ questions }) => {
   return (
     <div>
-      <h2>Filtered Questions</h2>
-      <ul>
-        {questions.map((question: Question) => (
-          <li key={question.id}>{question.question_string}</li>
-        ))}
-      </ul>
+      <h2>Your Questions</h2>
+      {questions.map((question: Question) => (
+        <QuestionContainer key={question.id} question={question} />
+      ))}
     </div>
   );
 };

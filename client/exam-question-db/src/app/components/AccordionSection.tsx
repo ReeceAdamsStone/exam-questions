@@ -127,7 +127,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
               </Checkbox>
             ))}
           </CheckboxGroup>
-          <Button onClick={handleFetchQuestions} className="px-unit-2 py-unit-1 min-w-unit-5xl">Fetch Questions</Button>
+          <Button onClick={handleFetchQuestions} className="px-unit-2 py-unit-1 min-w-unit-5xl">Get Questions</Button>
         </div>
       )}
     </div>
