@@ -5,6 +5,7 @@ import { Inder } from 'next/font/google'
 import { Providers } from './components/providers';
 import ThemeSwitcher from './components/ThemeSwitcher';
 
+
 const inder = Inder ({ 
   subsets: ['latin'],
   weight: ['400']
@@ -21,13 +22,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" style={{ colorScheme: "dark"}}>
       <body className={inder.className}>
         <Providers> 
         <header>
-          <ThemeSwitcher>
-            
-          </ThemeSwitcher>
+          <ThemeSwitcher></ThemeSwitcher>
+
+        
         <p>Placeholder Header</p>
         </header>
 

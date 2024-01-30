@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-
 import { Button } from '@nextui-org/button'
+import { SunIcon, MoonIcon, SparklesIcon } from '@heroicons/react/24/solid'
 
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false)
@@ -17,14 +17,18 @@ export default function ThemeSwitcher() {
 
   return (
     <div className='flex gap-4'>
+        
       <Button size='sm' variant='flat' onClick={() => setTheme('light')}>
-        Light
+       <SunIcon>
+       </SunIcon>
       </Button>
       <Button size='sm' variant='flat' onClick={() => setTheme('dark')}>
-        Dark
+        <MoonIcon>
+        </MoonIcon>
       </Button>
       <Button size='sm' variant='flat' onClick={() => setTheme('modern')}>
-        Modern
+        <SparklesIcon>
+        </SparklesIcon>
       </Button>
     </div>
   )
