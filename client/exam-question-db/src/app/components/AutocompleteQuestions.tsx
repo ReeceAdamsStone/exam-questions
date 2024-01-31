@@ -30,6 +30,7 @@ export default function AutoCompleteQuestions() {
 
   return (
     <Autocomplete
+      color="default"
       defaultItems={questions}
       label="Search for any quesition here"
       placeholder="Want to search for a specific question?"

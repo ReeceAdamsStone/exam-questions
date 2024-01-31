@@ -123,7 +123,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
             onChange={(values) => setSelectedItems(values)}
           >
             {data.map((item) => (
-              <Checkbox key={`${sectionName}-${item[keyField]}`} value={String(item[keyField])}>
+              <Checkbox color= "default" key={`${sectionName}-${item[keyField]}`} value={String(item[keyField])}>
                 {getCheckboxLabel(item)}
               </Checkbox>
             ))}
