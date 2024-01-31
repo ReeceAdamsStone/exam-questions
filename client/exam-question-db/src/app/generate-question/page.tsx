@@ -6,7 +6,6 @@ import AutoCompleteQuestions from '../components/AutocompleteQuestions';
 import QuestionsCard from '../components/QuestionsInfo';
 import { Providers } from '../components/providers';
 
-
 const Home = () => {
   const [questions, setQuestions] = useState([]);
 
@@ -18,9 +17,21 @@ const Home = () => {
     <Providers>
       <div className="flex h-screen">
         {/* Left Column */}
-        <div className="flex-1 flex flex-col p-4">
-          <AutoCompleteQuestions />
-          <QuestionsCard questions={questions} />
+        <div className="flex-1 flex flex-col">
+          {/* AutoCompleteQuestions component */}
+          <div className="flex items-center justify-center bg-background/60 dark:bg-default-100/50 p-4">
+            <AutoCompleteQuestions />
+          </div>
+
+          {/* QuestionsCard component in two columns */}
+          <div className="flex flex-1">
+            <div className="flex-1 p-2">
+              <QuestionsCard questions={questions.slice(0, Math.ceil(questions.length / 2))} />
+            </div>
+            <div className="flex-1 p-2">
+              <QuestionsCard questions={questions.slice(Math.ceil(questions.length / 2))} />
+            </div>
+          </div>
         </div>
 
         {/* Right Column */}

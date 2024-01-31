@@ -108,7 +108,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
   };
 
   return (
-    <div >
+    <div className="border-none bg-primary-300 dark:bg-default-100/50 max-w-[610px] mt-5 mb-5 text-center text-lg font-semibold">
       <div
         onClick={() => setIsSectionOpen((prev) => !prev)}
       >
@@ -117,6 +117,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
       {isSectionOpen && (
         <div>
           <CheckboxGroup
+          className="text-left font-normal bg-background"
             label={`Select the ${sectionName.toLowerCase()} you would like questions for`}
             orientation="vertical"
             onChange={(values) => setSelectedItems(values)}
@@ -127,7 +128,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
               </Checkbox>
             ))}
           </CheckboxGroup>
-          <Button onClick={handleFetchQuestions} className="px-unit-2 py-unit-1 min-w-unit-5xl">Get Questions</Button>
+          <Button onClick={handleFetchQuestions} className="align-middle px-unit-2 py-unit-1 min-w-unit-4xl ">Get Questions</Button>
         </div>
       )}
     </div>

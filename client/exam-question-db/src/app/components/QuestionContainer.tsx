@@ -50,7 +50,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
     viewport={{ once: true }}
   >
     <Card
-      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] mt-5 mb-5" // Adjust the margin as needed
+      className="border-none bg-primary-300 dark:bg-default-100/50 max-w-[610px] mt-5 mb-5"
       shadow="sm"
     >
       <CardBody>
