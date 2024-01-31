@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { Card, CardBody } from "@nextui-org/react";
 import { HeartIcon } from "@heroicons/react/20/solid";
 import { HeartIcon as OutlineHeart } from "@heroicons/react/24/outline";
@@ -41,9 +42,15 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
   };
 
   return (
+    <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 0, y: 0 }}
+    transition={{ duration: 0.8 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+  >
     <Card
-      isBlurred
-      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
+      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] mt-5 mb-5" // Adjust the margin as needed
       shadow="sm"
     >
       <CardBody>
@@ -93,6 +100,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
         </div>
       </CardBody>
     </Card>
+    </motion.div>
   );
 };
 
