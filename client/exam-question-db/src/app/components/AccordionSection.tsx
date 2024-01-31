@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { CheckboxGroup, Checkbox, Button } from "@nextui-org/react";
-import QuestionsCard from "./QuestionsCard";
+import QuestionsCard from "./QuestionsInfo";
 
 interface AccordionSectionProps {
   endpoint: string;
@@ -81,7 +81,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
       // If it's Topic, show topic name
       return `${item.topic_name}`;
     } else {
-      return "Hasnt worked";
+      return "Unable to source category data";
     }
   };
   

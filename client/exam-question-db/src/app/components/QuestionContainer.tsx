@@ -1,10 +1,44 @@
-// QuestionCard.jsx
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardBody } from "@nextui-org/react";
+import { HeartIcon } from "@heroicons/react/20/solid";
+import { HeartIcon as OutlineHeart } from "@heroicons/react/24/outline";
+import { StarIcon } from "@heroicons/react/20/solid";
+import { StarIcon as OutlineStar } from "@heroicons/react/24/outline";
+import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassCircleIcon as OutlineGlassCircle } from "@heroicons/react/24/outline";
 
-const QuestionCard = ({ question }) => {
+interface Question {
+  id: number;
+  question_string: string;
+  topic: {
+    id: number;
+    name: string;
+  };
+}
+
+interface QuestionCardProps {
+  question: Question;
+}
+
+const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
   // Split the question string into an array of lines based on bullet points
   const questionLines = question.question_string.split("\n");
+
+  interface IconState {
+    isLiked: boolean;
+    isStarred: boolean;
+    isMagnified: boolean;
+  }
+
+  const [iconState, setIconState] = useState<IconState>({
+    isLiked: false,
+    isStarred: false,
+    isMagnified: false,
+  });
+
+  const handleToggle = (icon: keyof IconState) => {
+    setIconState((prev) => ({ ...prev, [icon]: !prev[icon] }));
+  };
 
   return (
     <Card
@@ -28,7 +62,34 @@ const QuestionCard = ({ question }) => {
         </div>
 
         <div className="flex w-full items-center justify-center">
-          {/* Add your buttons/icons here */}
+          {/* Heart icon */}
+          <button onClick={() => handleToggle("isLiked")} className="focus:outline-none mr-4">
+            {iconState.isLiked ? (
+              <HeartIcon className="h-6 w-6 fill-current" />
+            ) : (
+              <OutlineHeart className="h-6 w-6 stroke-current" />
+            )}
+          </button>
+
+          {/* Star icon */}
+          <button onClick={() => handleToggle("isStarred")} className="focus:outline-none mr-4">
+            {iconState.isStarred ? (
+              <StarIcon className="h-6 w-6 fill-current" />
+            ) : (
+              <OutlineStar className="h-6 w-6 stroke-current" />
+            )}
+          </button>
+
+          {/* Magnifying glass icon */}
+          <button onClick={() => handleToggle("isMagnified")} className="focus:outline-none">
+            {iconState.isMagnified ? (
+              <MagnifyingGlassCircleIcon className="h-6 w-6 fill-current" />
+            ) : (
+              <OutlineGlassCircle className="h-6 w-6 stroke-current" />
+            )}
+          </button>
+
+         
         </div>
       </CardBody>
     </Card>

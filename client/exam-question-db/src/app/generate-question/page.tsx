@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import AccordionSection from '../components/AccordionSection';
 import AutoCompleteQuestions from '../components/AutocompleteQuestions';
-import QuestionsCard from '../components/QuestionsCard';
+import QuestionsCard from '../components/QuestionsInfo';
 import { Providers } from '../components/providers';
+
 
 const Home = () => {
   const [questions, setQuestions] = useState([]);

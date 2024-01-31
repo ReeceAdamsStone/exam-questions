@@ -15,7 +15,7 @@ interface QuestionsCardProps {
   questions: Question[];
 }
 
-const QuestionsCard: React.FC<QuestionsCardProps> = ({ questions }) => {
+const QuestionsInfo: React.FC<QuestionsCardProps> = ({ questions }) => {
   return (
     <div>
       <h2>Your Questions</h2>
@@ -26,4 +26,4 @@ const QuestionsCard: React.FC<QuestionsCardProps> = ({ questions }) => {
   );
 };
 
-export default QuestionsCard;
+export default QuestionsInfo;
